@@ -4,21 +4,13 @@ pascal_triangle Module
 """
 
 def pascal_triangle(n):
+    """returns ntn-size Pascal's triangle"""
     if n <= 0:
         return []  # Return an empty list for n <= 0
 
-    triangle = []  # Initialize an empty list to store the triangle
+    p_triangle = []
+    for i in range(n):
+        row = [1 if j == 0 or j == i else row[j - 1] + row[j] for j in range(i + 1)]
+        p_triangle.append(row)
 
-    for row in range(n):
-        current_row = []  # Initialize the current row
-        for col in range(row + 1):
-            if col == 0 or col == row:
-                current_row.append(1)  # The first and last elements of each row are 1
-            else:
-                # Calculate the middle elements by adding the two numbers above
-                above_row = triangle[row - 1]
-                current_value = above_row[col - 1] + above_row[col]
-                current_row.append(current_value)
-        triangle.append(current_row)  # Add the current row to the triangle
-
-    return triangle
+    return p_triangle
