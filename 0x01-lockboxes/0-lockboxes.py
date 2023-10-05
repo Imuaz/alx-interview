@@ -6,16 +6,18 @@ boxes unlock module
 
 def canUnlockAll(boxes):
     """method that checks if all boxes can be opened"""
-    num_boxes = len(boxes)
-    unlocked = [False] * num_boxes
-    unlocked[0] = True  # Start with the first box unlocked
-    keys = [0]  # Initialize a list of keys with the first box keys
-
-    while keys:
-        box_id = keys.pop()
-        for key in boxes[box_id]:
-            if not unlocked[key]:
-                unlocked[key] = True
-                keys.append(key)
-
-    return all(unlocked)
+    keys = [0]
+    unlocked = []
+    while True:
+        if keys == unlocked:
+            break
+        for key in keys:
+            if key not in unlocked:
+                unlocked.append(key)
+        for ibox in unlocked:
+            current = boxes[ibox]
+            for bx in current:
+                if bx not in keys and bx < len(boxes):
+                    keys.append(bx)
+    
+    return len(unlocked) == len(boxes)
