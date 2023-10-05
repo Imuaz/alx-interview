@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 """
-boxes unlock
+boxes unlock module
 """
 
 
 def canUnlockAll(boxes):
+    """method that checks if all boxes can be opened"""
     num_boxes = len(boxes)
     unlocked = [False] * num_boxes
     unlocked[0] = True  # Start with the first box unlocked
