@@ -2,21 +2,20 @@
 """
 boxes unlock module
 """
+from collections import deque
 
 
 def canUnlockAll(boxes):
     """method that checks if all boxes can be opened"""
-    keys = [0]
-    unlocked = []
-    while True:
-        if keys == unlocked:
-            break
-        for key in keys:
-            if key not in unlocked:
-                unlocked.append(key)
-        for ibox in unlocked:
-            current = boxes[ibox]
-            for bx in current:
-                if bx not in keys and bx < len(boxes):
-                    keys.append(bx)
-    return len(unlocked) == len(boxes)
+    num_boxes = len(boxes)
+    visited = [False] * num_boxes
+    visited[0] = True  # Start with the first box visited
+    queue = deque([0])  # Initialize a queue with the first box
+
+    while queue:
+        box_id = queue.popleft()
+        for key in boxes[box_id]:
+            if not visited[key]:
+                visited[key] = True
+                queue.append(key)
+    return all(visited)
