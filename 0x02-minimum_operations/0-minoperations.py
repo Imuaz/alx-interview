@@ -4,7 +4,7 @@ Module for the minimum operation
 '''
 
 
-def minOperations(n: int) -> int:
+def minOperations(n):
     '''
     Calculate the minimum number of operations to achieve `n` 'H' characters
     in the file.
