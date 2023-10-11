@@ -11,7 +11,7 @@ def minOperations(n):
     '''
     res = 0
 
-    if n <= 1:
+    if n <= 1 or type(n) is not int:
         return res
 
     i = 2
