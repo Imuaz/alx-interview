@@ -35,8 +35,7 @@ try:
 
         # Check for invalid status codes
         if status_code not in sc_dict:
-            print('Invalid status code:', status_code)
-            continue
+            print('Warning: Invalid status code:', status_code)
 
         # Update the metrics
         sc_dict[status_code] += 1
@@ -51,3 +50,4 @@ except Exception as ex:
     pass
 finally:
     print_data(total)
+
