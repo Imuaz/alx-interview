@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 '''Log parsing Module '''
 import sys
-
 sts_codes_dict = {'200': 0, '301': 0, '400': 0, '401': 0,
                   '403': 0, '404': 0, '405': 0, '500': 0}
 total_file_size = 0
@@ -14,6 +13,7 @@ def input_statistic(total_file_size):
     for key, value in sorted(sts_codes_dict.items()):
         if value != 0:
             print(f'{key}: {value}')
+
 
 try:
     for line in sys.stdin:
