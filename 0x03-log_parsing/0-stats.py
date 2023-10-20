@@ -1,53 +1,40 @@
 #!/usr/bin/python3
-''' module for log parsing '''
+'''Log parsing Module '''
 
 import re
 import sys
 
-total = 0
-counter = 0
-sc_dict = {'200': 0, '301': 0, '400': 0, '401': 0,
-           '403': 0, '404': 0, '405': 0, '500': 0}
+sts_codes_dict = {'200': 0, '301': 0, '400': 0, '401': 0,
+                  '403': 0, '404': 0, '405': 0, '500': 0}
+total_file_size = 0
+line_counts = 0
 
-# Regular expression to match the input format
-input_format = re.compile(r'^[0-9.]+ - \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)\s*$')
 
-def print_data(total):
-    ''' function to print statistics for input '''
-    print('File size:', total)
-    for key, value in sorted(sc_dict.items()):
+def input_statistic(total_file_size):
+    '''prints input statistics'''
+    print(f'File size: {total_file_size}')
+    for key, value in sorted(sts_codes_dict.items()):
         if value != 0:
-            print('{}: {}'.format(key, value))
+            print(f'{key}: {value}')
 
 
 try:
     for line in sys.stdin:
-        # Check if the input line matches the format
-        match = input_format.match(line)
+        # spliting the stdin line by whide space
+        line_read = line.split(' ')
 
-        # If the line does not match the format, skip it
-        if not match:
-            continue
-
-        # Extract the status code and request size from the match
-        status_code = int(match.group(1))
-        request_size = int(match.group(2))
-
-        # Check for invalid status codes
-        if status_code not in sc_dict:
-            print('Warning: Invalid status code:', status_code)
-
-        # Update the metrics
-        sc_dict[status_code] += 1
-        total += request_size
-        counter += 1
-
-        # Print the statistics every 10 lines and at the end of the input
-        if counter == 10 or sys.stdin.isatty():
-            print_data(total)
-            counter = 0
+        # checking if the splited list of string length is more than 4
+        if len(line_read) > 4:
+            status_code = line_read[-2]  # extract the status code
+            file_size = int(line_read[-1])  # extract the file size
+            if status_code in sts_codes_dict.keys():
+                sts_codes_dict[status_code] += 1
+            total_file_size += file_size
+            line_counts += 1
+        if line_counts == 10:
+            line_counts = 0
+            input_statistic(total_file_size)
 except Exception as ex:
     pass
 finally:
-    print_data(total)
-
+    input_statistic(total_file_size)
