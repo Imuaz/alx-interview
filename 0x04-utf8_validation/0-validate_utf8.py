@@ -8,21 +8,26 @@ def validUTF8(data):
     '''
     determines if a given data set represents a valid UTF-8 encoding
     '''
-    count = 0  # stores the number of following bytes
-    mapping = {0: 0, 2: 1, 3: 2, 4: 3}  # num of consecutive 1s to the f-bytes
+    cont_bytes = 0
 
-    for num in data:
-        if count == 0:
-            # get the num of consecutive 1s in the first four bits
-            count = mapping.get(num >> 4 if num >> 5 == 0b110 else num >> 3, -1)
-            if count == -1:  # not a valid UTF-8
+    for byte in data:
+        # if the current byte is a valid cont. byte.
+        if cont_bytes > 0:
+            if (byte & 0xC0) != 0x80:
                 return False
-        else:  # if count is !=0 check the following bytes
-            if num >> 6 != 0b10:  # if byte doesn't start with 10 not UTF-8
+            cont_bytes -= 1
+        else:
+            # Determine the no. of continuation bytes based on the leading bits
+            if (byte & 0x80) == 0:
+                cont_bytes = 0
+            elif (byte & 0xE0) == 0xC0:
+                cont_bytes = 1
+            elif (byte & 0xF0) == 0xE0:
+                cont_bytes = 2
+            elif (byte & 0xF8) == 0xF0:
+                cont_bytes = 3
+            else:
                 return False
 
-        count -= 1  # decrement count by 1 after checking each byte
-        # if count != 0 at the end, there are missing bytes and its invalid
-        if count != 0:
-            return False
-        return True  # it is valid
+    # If we expect more continuation bytes, the data is incomplete.
+    return cont_bytes == 0
