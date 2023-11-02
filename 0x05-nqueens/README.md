@@ -15,14 +15,13 @@ The N queens puzzle is the challenge of placing N non-attacking queens on an N×
   - If N is smaller than `4`, print `N must be at least 4`, followed by a new line, and exit with the status `1`
 - The program should print every possible solution to the problem
   - One solution per line
+  - You don’t have to print the solutions in a specific order
   - Format:
 ```
 $ ./0-nqueens.py 4
 [[0, 1], [1, 3], [2, 0], [3, 2]]
 [[0, 2], [1, 0], [2, 3], [3, 1]]
 ```
-
-  - You don’t have to print the solutions in a specific order
 - You are only allowed to import the sys module
 
 ## Solution
