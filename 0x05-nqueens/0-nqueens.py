@@ -31,13 +31,13 @@ def solveNQueens(n):
             col.remove(c)
             posDiag.remove(r + c)
             negDiag.remove(r - c)
-            board[r][c] = '.'
+            board[r][c] = ''
 
     col = set()
     posDiag = set()  # (r + c)
     negDiag = set()  # (r - c)
     res = []
-    board = [['.'] * n for i in range(n)]
+    board = [[''] * n for i in range(n)]
 
     backtrack(0, col, posDiag, negDiag)
     return res
