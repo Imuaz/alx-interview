@@ -22,7 +22,7 @@ $ ./0-nqueens.py 4
 [[0, 1], [1, 3], [2, 0], [3, 2]]
 [[0, 2], [1, 0], [2, 3], [3, 1]]
 ```
-- You are only allowed to import the sys module
+- You are only allowed to import the `sys` module
 
 ## Solution
 Here's a step-by-step explanation of how the problem is solved [0-nqueens.py](./0-nqueens.py):
