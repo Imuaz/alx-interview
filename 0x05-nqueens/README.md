@@ -16,11 +16,11 @@ The N queens puzzle is the challenge of placing N non-attacking queens on an N×
 - The program should print every possible solution to the problem
   - One solution per line
   - Format:
-  ```
-  $ ./0-nqueens.py 4
+```
+$ ./0-nqueens.py 4
 [[0, 1], [1, 3], [2, 0], [3, 2]]
 [[0, 2], [1, 0], [2, 3], [3, 1]]
-  ```
+```
   - You don’t have to print the solutions in a specific order
 - You are only allowed to import the sys module
 
