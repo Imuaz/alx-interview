@@ -1,4 +1,3 @@
-#!/usr/bin/node
 const request = require('request');
 
 function getMovieData (movieId) {
@@ -40,11 +39,3 @@ async function printCharacterNames (movieId) {
 
 // Extract Movie ID from command line arguments
 const movieId = process.argv[2];
-
-// Check if Movie ID is provided
-if (movieId) {
-  // Call the function with the provided Movie ID
-  printCharacterNames(movieId);
-} else {
-  console.error('Please provide a Movie ID as a command line argument (e.g., star_wars.js 3)');
-}
