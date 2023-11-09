@@ -4,12 +4,16 @@ const request = require('request');
 function getMovieData (movieId) {
   return new Promise((resolve, reject) => {
     const url = `https://swapi-api.alx-tools.com/films/${movieId}`;
+    const options = {
+      method: 'GET',
+      url
+    };
 
-    request(url, (error, response, body) => {
+    request(options, (error, response, body) => {
       if (!error && response.statusCode === 200) {
         resolve(JSON.parse(body));
       } else {
-        reject(`Failed to retrieve data for Movie ID ${movieId}`);
+        reject(new Error(`Failed to retrieve data for Movie ID ${movieId}`));
       }
     });
   });
@@ -34,7 +38,7 @@ async function printCharacterNames (movieId) {
       console.log('No characters found for the specified movie ID.');
     }
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
   }
 }
 
