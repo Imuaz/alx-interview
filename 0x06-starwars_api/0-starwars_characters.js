@@ -1,46 +1,47 @@
 #!/usr/bin/node
+/* prints all characters of a Star Wars movie: */
 const request = require('request');
 
-function getMovieData (movieId) {
+// Function to make a request and return a promise
+function makeRequest (url) {
   return new Promise((resolve, reject) => {
-    const url = `https://swapi-api.alx-tools.com/films/${movieId}`;
-    const options = {
-      method: 'GET',
-      url
-    };
-
-    request(options, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        resolve(JSON.parse(body));
+    request(url, (error, response, body) => {
+      if (error) {
+        reject(error);
       } else {
-        reject(new Error(`Failed to retrieve data for Movie ID ${movieId}`));
+        resolve(JSON.parse(body));
       }
     });
   });
 }
 
+// Function to print character names for a given film
 async function printCharacterNames (movieId) {
   try {
-    const movieData = await getMovieData(movieId);
+    // Fetch film data
+    const filmUrl = `https://swapi-api.alx-tools.com/api/films/${movieId}`;
+    const filmData = await makeRequest(filmUrl);
 
-    if (movieData) {
-      const characters = movieData.characters;
-      for (const characterUrl of characters) {
-        request(characterUrl, (error, response, body) => {
-          if (!error && response.statusCode === 200) {
-            console.log(JSON.parse(body).name);
-          } else {
-            console.error(`Failed to retrieve character data for URL: ${characterUrl}`);
-          }
-        });
-      }
-    } else {
-      console.log('No characters found for the specified movie ID.');
-    }
+    // Extract character URLs from the film data
+    const characterURLs = filmData.characters;
+
+    // Fetch and print character names concurrently
+    const characterNames = await Promise.all(
+      characterURLs.map(async (charUrl) => {
+        const characterData = await makeRequest(charUrl);
+        return characterData.name;
+      })
+    );
+
+    // Print the names of all characters
+    characterNames.forEach((name) => console.log(name));
   } catch (error) {
-    console.error(error.message);
+    console.error(`Error: ${error.message}`);
   }
 }
 
-// Extract Movie ID from command line arguments
-const movieId = process.argv[2];
+// Check if the Movie ID is provided as a command line argument
+if (process.argv.length >= 3) {
+  const movieId = process.argv[2];
+  printCharacterNames(movieId);
+}
