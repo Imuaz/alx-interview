@@ -18,12 +18,12 @@ def makeChange(coins, total):
 
     if total <= 0:
         return 0
-    
+
     for coin in coins:
         counter = total // coin
         total %= coin
         total_count += counter
         if total == 0:
             return total_count
-    
+
     return -1
