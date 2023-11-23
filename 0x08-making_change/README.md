@@ -12,7 +12,7 @@ Greedy algorithms involve making locally optimal choices at each stage with the 
 <h3>Sorting:</h3>
 Sorting is a common technique employed in the coin change problem to order the coin denominations. Sorting the coins in descending order allows for a greedy strategy, where larger denominations are considered first during the iteration.
 
-<h3>Iteration:<h3>
+<h3>Iteration:</h3>
 Iteration is crucial for processing each coin denomination and updating the count of coins needed based on the remaining total. Whether using a dynamic programming approach or a greedy algorithm, iterating through the list of coin denominations is a fundamental coding technique.
 
 <h3>Array Manipulation:</h3>
