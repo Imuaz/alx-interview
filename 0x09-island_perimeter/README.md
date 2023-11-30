@@ -39,4 +39,5 @@ If any adjacent cell is water (`0`) or the current cell is at the edge of the gr
 **7. Returning the Result:**
 After iterating through the entire grid, the final accumulated perimeter value is returned.
 
-- In summary, the algorithm efficiently calculates the perimeter of the island by considering the presence of land cells and their surroundings, while also accounting for the grid boundaries. This approach ensures that the specific conditions of the problem, such as the absence of lakes and the island being completely surrounded by water, are taken into account during the perimeter calculation.
+**SUMMARY**
+- The algorithm efficiently calculates the perimeter of the island by considering the presence of land cells and their surroundings, while also accounting for the grid boundaries. This approach ensures that the specific conditions of the problem, such as the absence of lakes and the island being completely surrounded by water, are taken into account during the perimeter calculation.
