@@ -13,9 +13,12 @@
   - There is only one island (or nothing).
   - The island doesn’t have “lakes” (water inside that isn’t connected to the water surrounding the island).
 
+## Test File
+- [0-main.py](./0-main.py): Main function for testing purpose
+
 ## Approach used
 
-Let's break down the approach followed to solve the problem:
+Let's break down the approach followed to solve the problem in [0-island_perimeter.py](./0-island_perimeter.py).:
 
 **1. Perimeter Initialization:**
   - A variable named `perimeter` is initialised to zero. This variable will be used to accumulate the perimeter count.
